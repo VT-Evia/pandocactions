@@ -78,6 +78,7 @@ jobs:
             -s \
             --toc \
             --metadata title="$title" \
+            -V year="$(date +%Y)" \
             --css=assets/style.css \
             --include-before-body=output/assets/header.html \
             --include-after-body=output/assets/footer.html \
