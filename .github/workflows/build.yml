@@ -27,10 +27,8 @@ jobs:
       run: |
         mkdir -p output/assets
         cp assets/style.css output/assets/
-        # Substitute build year into footer before Pandoc runs
         sed "s/BUILDYEAR/$BUILD_YEAR/g" assets/footer.html > output/assets/footer.html
-        # Substitute build date into cover before Pandoc runs
-        sed "s/BUILDDATE/$BUILD_DATE/g" assets/cover.tex > output/assets/cover.tex
+        cp assets/cover.tex output/assets/cover.tex
         if [ -f assets/cover.jpg ]; then cp assets/cover.jpg output/assets/; fi
 
     - name: Generate Header with Clean navtitle Navigation
@@ -53,7 +51,7 @@ jobs:
       run: |
         pandoc src/*.md \
           --metadata-file=metadata.yaml \
-          --metadata build-date="$BUILD_DATE" \
+          --metadata date="$BUILD_DATE" \
           --pdf-engine=xelatex \
           --toc \
           --include-before-body=output/assets/cover.tex \
