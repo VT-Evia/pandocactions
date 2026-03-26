@@ -9,7 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
+
+    - name: Set build date
+      run: |
+        echo "BUILD_DATE=$(date +'%B %-d, %Y')" >> $GITHUB_ENV
+        echo "BUILD_YEAR=$(date +'%Y')" >> $GITHUB_ENV
 
     - name: Set up Pandoc and LaTeX
       run: sudo apt-get update && sudo apt-get install -y pandoc texlive-xetex texlive-fonts-recommended texlive-plain-generic
@@ -18,7 +23,8 @@ jobs:
       run: |
         mkdir -p output/assets
         cp assets/style.css output/assets/
-        cp assets/footer.html output/assets/
+        # Substitute build year into footer before Pandoc runs
+        sed "s/BUILDYEAR/$BUILD_YEAR/g" assets/footer.html > output/assets/footer.html
         if [ -f assets/cover.jpg ]; then cp assets/cover.jpg output/assets/; fi
 
     - name: Generate Header with Clean navtitle Navigation
@@ -41,6 +47,7 @@ jobs:
       run: |
         pandoc src/*.md \
           --metadata-file=metadata.yaml \
+          --metadata build-date="$BUILD_DATE" \
           --pdf-engine=xelatex \
           --toc \
           --include-before-body=assets/cover.tex \
@@ -58,6 +65,7 @@ jobs:
       run: |
         pandoc $(ls src/*.md | sort -V) \
           --metadata-file=metadata.yaml \
+          --metadata build-date="$BUILD_DATE" \
           --toc \
           --toc-depth=3 \
           -o output/document.docx
@@ -79,7 +87,6 @@ jobs:
             -s \
             --toc \
             --metadata title="$title" \
-            -V year="$(date +%Y)" \
             --css=assets/style.css \
             --include-before-body=output/assets/header.html \
             --include-after-body=output/assets/footer.html \
@@ -93,7 +100,7 @@ jobs:
         path: output/
 
     - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+      uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./output
