@@ -35,12 +35,13 @@ index.md
 
 ## ✍️ Writing Your Markdown Files
 
-* Each file **must begin with a YAML metadata block**.
-* Required field:
+* Each numbered file (`01-intro.md`, `02-topic.md`, etc.) should begin with a YAML metadata block containing:
 
 ```yaml
 navtitle: "Title to Show in Navigation Menu"
 ```
+
+* If `navtitle` is omitted, the workflow falls back to the file's first `# Heading` for the navigation label.
 
 * Example:
 
