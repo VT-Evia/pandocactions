@@ -5,7 +5,7 @@ This is the landing page for your documentation project. Use the navigation link
 ## Getting Started
 
 - [Introduction](intro.html)
-- [Chapter 1: Structured Authoring](chapter1.html)
+- [Chapter 1: Structured Authoring](structured-authoring.html)
 
 ## About This Site
 
