@@ -87,7 +87,7 @@ Modify the following files in the `assets/` folder to style your site:
 * `footer.html`: Footer block
 * `cover.jpg`: Optional EPUB cover
 * `cover.tex`: Optional LaTeX title page for PDF
-* `reference.docx`: Optional Word template to control fonts and heading styles in the DOCX output
+* `reference.docx`: Word template to control fonts and heading styles in the DOCX output. The included template adds an automatic page number in the top-right header of every page.
 
 > The navigation header is generated automatically. Do **not** edit `header.html` manually—it's built during the workflow run using your Markdown titles.
 
@@ -103,7 +103,7 @@ Instead, each workflow run on the **Actions** page provides them as downloadable
 3. Scroll down to the **Artifacts** section.
 4. Download the `site-outputs.zip` file to access the PDF, EPUB, and Word artifacts.
 
-> **Tip:** To customize Word styles, generate a default reference file locally with `pandoc --print-default-data-file reference.docx > assets/reference.docx`, open it in Word, apply your preferred styles, and save it back. Pandoc will use those styles when building the DOCX.
+> **Tip:** To customize Word styles (fonts, heading looks, margins, etc.), open `assets/reference.docx` in Word, apply your preferred styles, and save it back—Pandoc will use those styles, and keep the page-number header, when building the DOCX. If you want to start over from Pandoc's own default template instead, regenerate it with `pandoc --print-default-data-file reference.docx > assets/reference.docx` (note this drops the page-number header).
 
 ---
 
