@@ -86,7 +86,7 @@ Modify the following files in the `assets/` folder to style your site:
 * `style.css`: Main stylesheet
 * `footer.html`: Footer block
 * `cover.jpg`: Optional EPUB cover
-* `cover.tex`: Optional LaTeX title page for PDF
+* `cover.tex`: Optional LaTeX title page for PDF. Supports Pandoc template variables like `$title$`, `$author$`, and `$date$`—the workflow renders these through Pandoc before the PDF build, so `$date$` always fills in with the current build date automatically.
 * `reference.docx`: Word template to control fonts and heading styles in the DOCX output. The included template adds an automatic page number in the top-right header of every page.
 
 > The navigation header is generated automatically. Do **not** edit `header.html` manually—it's built during the workflow run using your Markdown titles.
